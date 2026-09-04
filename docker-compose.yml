@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  kavita:
+    image: jvmilazz0/kavita:latest
+    container_name: kavita
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
+      # Opcionales:
+      # - KAVITA_PORT=5000
+      # - KAVITA_API_KEY=tuAPIKeySegura
+    volumes:
+      - /mnt/media/kavita/config:/config
+      - /mnt/media/kavita/data:/data
+      - /mnt/media/kavita/library:/library
