@@ -1,50 +1,51 @@
 # 📚 Kavita Docker - Servidor de Lectura Autohospedado
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repo-blue?logo=github)](https://github.com/tu-usuario/kavita-docker)
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-blue?logo=github)](https://github.com/JLalib/kavita-docker)
 [![Docker](https://img.shields.io/badge/Docker-jvmilazz0%2Fkavita-blue?logo=docker)](https://hub.docker.com/r/jvmilazz0/kavita)
-[![License](https://img.shields.io/badge/License-GPL--3.0-green)](https://github.com/Kareadita/Kavita/blob/develop/LICENSE)
+[![License](https://img.shields.io/badge/License-GPL--3.0-orange)](https://github.com/Kareadita/Kavita/blob/develop/LICENSE)
 
 ## 📋 Descripción general
 
-**Kavita** es un servidor de lectura completo autohospedado para manga, webtoons, cómics (CBR, CBZ, ZIP, RAR, 7Z) y libros (EPUB, PDF). Ofrece lectores web responsivos, gestión multi-usuario, integración de metadatos, anotaciones EPUB, filtros inteligentes y biblioteca compartida multi-dispositivo. Una alternativa enterprise-grade a Ubooquity y Komga, totalmente bajo tu control sin dependencias de servicios terceros.
+**Kavita** es un servidor de lectura completo autohospedado para manga, webtoons, cómics y libros con una interfaz web responsiva, soporte multi-usuario, integración de metadatos, anotaciones y todo bajo tu control sin dependencias de servicios terceros. Ideal para lectores apasionados, coleccionistas y homelabs que buscan una alternativa profesional a Ubooquity o Komga.
+
+Propuesta clave: **Reading server enterprise-grade self-hosted**. Soporta manga (CBR, CBZ, ZIP, RAR, 7Z), webtoons, cómics y libros (EPUB, PDF). Lectores web responsivos (mobile, tablet, desktop). Modo lectura continua (webtoon). Modo libro virtual (EPUB). Multi-usuario con control roles (admin, member). Metadatos integrados. Anotaciones y highlights EPUB. Filtros inteligentes. Collections, listas lectura, want-to-read. Zero cloud, 100% privacidad. GPL-3.0 open source. Production-ready Docker.
 
 ## ✨ Características principales
 
 - **Formatos múltiples**: Manga (CBR, CBZ, ZIP, RAR, RAR5, 7Z), Webtoons, Cómics, Libros (EPUB, PDF), Raw images
-- **Lectores responsivos**: Web reader completo, modo webtoon (scroll continuo), modo libro virtual (EPUB), funciona en móvil, tablet, desktop
+- **Lectores responsivos**: Web reader completo, modo webtoon (scroll continuo), modo libro virtual (EPUB), funciona perfecto en móvil, tablet, desktop
 - **Multi-usuario seguro**: Gestión usuarios, roles (admin, member), control acceso, restricciones edad, OIDC (OAuth)
 - **Metadatos integrados**: Covers, descripciones, géneros, autores, calificaciones, búsqueda y filtros avanzados
 - **Biblioteca compartida**: Collections, listas lectura, want-to-read, compartir con amigos/familia
 - **Anotaciones EPUB**: Highlights, notas, bookmarks en EPUB, annotations integradas
 - **Dashboard customizable**: Filtros inteligentes, orden personalizado, visibilidad toggles
 - **Localización completa**: Multi-idioma (Weblate), temas customizables, API REST, OPDS feed
-- **Zero cloud**: 100% privacidad, GPL-3.0 open source, production-ready
 
 ## 📋 Requisitos del sistema
 
 - Docker & Docker Compose v2+
-- 2 GB - 4 GB RAM mínimo (Kavita es muy ligero)
+- 2 GB - 4 GB RAM mínimo (Kavita es ligero)
 - 50 GB - 500+ GB espacio disco (según librería manga/cómics/libros)
-- Directorio `/mnt/media/kavita` accesible (o configurar ruta personalizada)
+- `/mnt/media/kavita` directorio accesible (o configurar ruta)
 - Puerto TCP disponible: 5000 (configurable)
 - CPU: 1-2+ cores (muy ligero)
 - Acceso internet (opcional: para metadatos, OPDS feeds)
 
-> **Nota**: Kavita consume pocos recursos. Perfecto para Raspberry Pi, NAS, homelab limitado. SQLite integrado.
+> **Muy ligero**: Kavita consume pocos recursos. Perfecto para Raspberry Pi, NAS, homelab limitado. SQLite integrado.
 
-## 🐳 Instalación
-
-### Estructura de directorios
+### Estructura directorios
 
 ```
 /mnt/media/kavita/
-├── config/     # Configuración Kavita
-├── data/       # Base datos SQLite
-└── library/    # Manga, cómics, libros (tus archivos)
+├── config/          # Configuración Kavita
+├── data/            # Base datos SQLite
+└── library/         # Manga, cómics, libros (tus archivos)
     ├── manga/
     ├── comics/
     └── books/
 ```
+
+## 🐳 Instalación
 
 ### Paso 1: Preparar estructura directorios
 
@@ -97,14 +98,16 @@ docker compose ps
 
 ### Acceder a Kavita
 
-- **Web UI**: http://localhost:5000
-- **Desde otros dispositivos**: http://192.168.1.100:5000 (reemplaza con tu IP)
-- **Obtener tu IP**: `hostname -I`
+📚 **Kavita Web UI**: http://localhost:5000
+
+💡 **Desde otros dispositivos**: Usa la IP de tu servidor: `http://192.168.1.100:5000` (reemplaza con tu IP)
+
+Para obtener tu IP: `hostname -I`
 
 ## ⚙️ Configuración
 
 1. **Variables de entorno principales**:
-   - `PUID` / `PGID`: UID/GID del usuario (default 1000)
+   - `PUID` / `PGID`: Usuario/grupo para permisos (default 1000:1000)
    - `TZ`: Zona horaria (ej: Europe/Madrid)
    - `KAVITA_PORT`: Puerto interno (default 5000)
    - `KAVITA_API_KEY`: Clave API para acceso programático
@@ -114,9 +117,9 @@ docker compose ps
    - `/data`: Base de datos SQLite
    - `/library`: Archivos de manga, cómics y libros
 
-3. **Puertos**: Mapea `5000:5000` (host:container)
+3. **Puertos**: Mapea `5000:5000` (host:container) o cambia el puerto host si hay conflictos
 
-4. **Restart policy**: `unless-stopped` para auto-inicio
+4. **Restart policy**: `unless-stopped` para auto-inicio tras reinicio del host
 
 ## 🚀 Primeros pasos
 
@@ -133,11 +136,10 @@ docker compose ps
      ```
      /mnt/media/kavita/library/
      ├── Manga/
-     │   ├── [Manga Título]/
-     │   │   ├── [Volumen 1]/
-     │   │   │   ├── image1.jpg
-     │   │   │   └── image2.jpg
-     │   │   └── [Volumen 2]/
+     │   └── [Manga Título]/
+     │       └── [Volumen 1]/
+     │           ├── image1.jpg
+     │           └── image2.jpg
      ├── Comics/
      │   └── [Comic Nombre].cbz
      └── Books/
@@ -153,8 +155,7 @@ docker compose ps
 
 4. **Crear usuarios**
    - Settings → Users → New user
-   - Fill: username, email, password, rol
-   - Roles: Admin, Member
+   - Fill: username, email, password, rol (Admin, Member)
    - Click "Add user" → usuario puede login
 
 5. **Crear collections y listas lectura**
@@ -169,13 +170,13 @@ docker compose ps
    - Opción: integración Kavita+ (descarga metadatos externos)
 
 7. **Usar OPDS feed**
-   - OPDS feed URL para apps compatibles: `http://localhost:5000/api/opds`
+   - OPDS feed URL para apps OPDS compatibles: `http://localhost:5000/api/opds`
    - Compatible: Moon+ Reader, Elytra, Page Turner, etc
 
 ## 💡 Casos de uso
 
-- **Lectores manga/cómics**: Librería personal multi-dispositivo con lector web profesional
-- **Coleccionistas**: Organiza manga, webtoons, cómics en servidor propio con metadatos automáticos
+- **Lectores manga/cómics**: Librería personal, multi-dispositivo, lector web profesional
+- **Coleccionistas**: Organiza manga, webtoons, cómics en servidor propio, metadatos automáticos
 - **Familia/amigos**: Comparte librería lectura con multi-usuario, biblioteca compartida segura
 - **Homelabs**: Ultra-ligero, perfecto Raspberry Pi, NAS, VPS pequeño
 - **Privacidad**: Self-hosted, sin cloud, sin tracking, control total datos lectura
@@ -185,9 +186,18 @@ docker compose ps
 Para acceso externo seguro, se recomienda:
 
 - **Reverse Proxy** (Nginx Proxy Manager, Traefik, Caddy) con SSL/TLS
-- **VPN** (WireGuard, Tailscale) para acceso solo a red privada
+- **VPN** (WireGuard, Tailscale) para acceso solo desde red privada
 - **Authelia/Keycloak** para autenticación adicional (OIDC soportado nativamente)
 - **Fail2ban** / **CrowdSec** para protección contra fuerza bruta
+
+Ejemplo con Nginx Proxy Manager:
+```nginx
+# Configuración proxy pass hacia http://kavita:5000
+# Habilitar WebSocket support para reader
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "upgrade";
+```
 
 ## 🛠️ Gestión y mantenimiento
 
@@ -198,8 +208,9 @@ docker compose ps
 # Ver logs
 docker compose logs -f kavita
 
-# Detener Kavita (datos persisten en /mnt/media/kavita)
+# Detener Kavita
 docker compose down
+# Datos persisten en /mnt/media/kavita
 
 # Actualizar a versión nueva
 docker compose pull
@@ -220,11 +231,18 @@ tar -xzf kavita-backup-20240815.tar.gz -C /
 docker compose up -d
 ```
 
+### Formatos soportados
+
+**Manga y Cómics**: CBR, CBZ, ZIP, RAR/RAR5, 7Z, Raw images (JPG, PNG, GIF, WebP, BMP, TIFF en carpeta)
+
+**Libros**: EPUB (con annotations), PDF
+
 ## 📝 Licencia
 
-Este proyecto de despliegue Docker está bajo licencia **MIT**.  
-Kavita (upstream) está licenciado bajo **GPL-3.0** - [Ver licencia](https://github.com/Kareadita/Kavita/blob/develop/LICENSE).
+Este proyecto de despliegue Docker está bajo licencia **MIT**. La aplicación **Kavita** es software libre bajo licencia **GPL-3.0** (Copyright Kareadita/Kavita contributors). Ver [LICENSE](https://github.com/Kareadita/Kavita/blob/develop/LICENSE) oficial.
 
 ---
 
 > 📖 **Guía completa**: [Cómo instalar Kavita en Docker - Servidor de lectura autohospedado](https://genbyte.blogspot.com/2026/09/como-instalar-kavita-en-docker-servidor.html)
+>
+> 🐙 **Repositorio oficial**: [Kareadita/Kavita](https://github.com/Kareadita/Kavita) | 🐳 **Docker Hub**: [jvmilazz0/kavita](https://hub.docker.com/r/jvmilazz0/kavita) | 💬 **Discord**: [Kavita Community](https://discord.gg/kavita)
